@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abdulla Ali — Portfolio</title>
+  <meta name="description" content="CS graduate, ML researcher, and AI engineer. Published at HCII & KDD 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ─────────────────────────────── */
+    :root {
+      --bg:           #07101F;
+      --bg-card:      #0C1A2E;
+      --bg-card-h:    #102238;
+      --border:       rgba(0, 200, 255, 0.10);
+      --border-h:     rgba(0, 200, 255, 0.32);
+      --accent:       #00C8FF;
+      --accent-dim:   rgba(0, 200, 255, 0.09);
+      --gold:         #E8B84B;
+      --gold-dim:     rgba(232, 184, 75, 0.09);
+      --t1:           #EDF2FF;
+      --t2:           #7B8FAD;
+      --t3:           #435670;
+      --ff-display:   'Space Grotesk', sans-serif;
+      --ff-body:      'Inter', sans-serif;
+      --ff-mono:      'JetBrains Mono', monospace;
+      --radius:       10px;
+    }
+
+    /* ── RESET ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--t1);
+      font-family: var(--ff-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── DOT-GRID BACKGROUND ─────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,200,255,0.055) 1px, transparent 1px);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(7, 16, 31, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      color: var(--t1);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--ff-mono);
+      font-size: 0.76rem;
+      color: var(--t2);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-h);
+      color: var(--t2);
+      border-radius: 6px;
+      padding: 0.4rem 0.65rem;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* ── LAYOUT WRAPPER ──────────────────────── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── SECTION BASE ─────────────────────────── */
+    section { padding: 6rem 0; }
+    section:first-of-type { padding-top: 0; }
+
+    /* ── SECTION HEADER ─────────────────────── */
+    .sec-eyebrow {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .sec-title {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--t1);
+      line-height: 1.15;
+    }
+    .sec-rule {
+      width: 2.25rem;
+      height: 2px;
+      background: var(--accent);
+      margin-top: 0.9rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── HERO ─────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+    }
+    .hero-inner { max-width: 780px; }
+    .hero-eyebrow {
+      font-family: var(--ff-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0.85;
+    }
+    .hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(3.8rem, 9vw, 7.2rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: var(--t1);
+      margin-bottom: 1.4rem;
+    }
+    .hero-name span { color: var(--accent); }
+    .hero-typewriter {
+      font-family: var(--ff-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+      font-weight: 400;
+      color: var(--t2);
+      min-height: 2rem;
+      margin-bottom: 1.75rem;
+    }
+    .cursor {
+      color: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-bio {
+      max-width: 520px;
+      color: var(--t2);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+
+    /* ── BUTTONS ─────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1.55rem;
+      font-family: var(--ff-display);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 7px;
+      transition: opacity 0.2s, transform 0.2s, border-color 0.2s, color 0.2s, background 0.2s;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-solid {
+      background: var(--accent);
+      color: #040C18;
+      border-color: var(--accent);
+    }
+    .btn-solid:hover { opacity: 0.88; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--t1);
+      border-color: var(--border-h);
+    }
+    .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── HERO STATS ───────────────────────────── */
+    .hero-stats {
+      display: flex;
+      gap: 2.75rem;
+      flex-wrap: wrap;
+      padding-top: 2.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.3rem;
+    }
+
+    /* ── ABOUT ────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4.5rem;
+      align-items: start;
+    }
+    /* Photo placeholder */
+    .about-photo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .photo-placeholder {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px dashed var(--border-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--t3);
+    }
+    .photo-placeholder svg { opacity: 0.5; }
+    .photo-placeholder span {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+    .about-bio p {
+      color: var(--t2);
+      font-size: 1.02rem;
+      line-height: 1.78;
+    }
+    .about-bio p + p { margin-top: 1rem; }
+
+    /* Skills panel */
+    .skills-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .skill-group-label {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .tag {
+      font-family: var(--ff-mono);
+      font-size: 0.73rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,200,255,0.18);
+      padding: 0.28rem 0.7rem;
+      border-radius: 5px;
+    }
+
+    /* ── CARDS GRID ───────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.4rem;
+    }
+
+    /* ── PUB CARD ─────────────────────────────── */
+    .pub-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    }
+    .pub-card:hover {
+      border-color: var(--gold);
+      background: var(--bg-card-h);
+      transform: translateY(-3px);
+    }
+    .pub-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .pub-conf {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .pub-badge {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      background: var(--gold-dim);
+      border: 1px solid rgba(232,184,75,0.28);
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .pub-title {
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--t1);
+      line-height: 1.45;
+    }
+    .pub-desc {
+      font-size: 0.87rem;
+      color: var(--t2);
+      line-height: 1.68;
+      flex: 1;
+    }
+    .pub-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+    .pub-link {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      color: var(--t3);
+      transition: color 0.2s;
+    }
+    .pub-link:hover { color: var(--accent); }
+    .pub-req {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      color: var(--t3);
+      font-style: italic;
+    }
+
+    /* ── PROJECT CARD ─────────────────────────── */
+    .proj-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    }
+    .proj-card:hover {
+      border-color: var(--border-h);
+      background: var(--bg-card-h);
+      transform: translateY(-3px);
+    }
+    .proj-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .proj-title {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--t1);
+    }
+    .proj-sub {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+    .proj-icon { font-size: 1.6rem; line-height: 1; }
+    .proj-desc {
+      font-size: 0.88rem;
+      color: var(--t2);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .proj-tag {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      color: var(--t3);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+    .proj-links {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+    .proj-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--ff-display);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.42rem 0.95rem;
+      border-radius: 6px;
+      border: 1px solid;
+      transition: all 0.2s;
+    }
+    .proj-btn:hover { transform: translateY(-1px); }
+    .proj-btn.solid {
+      background: var(--accent);
+      color: #040C18;
+      border-color: var(--accent);
+    }
+    .proj-btn.solid:hover { opacity: 0.85; }
+    .proj-btn.outline {
+      background: transparent;
+      color: var(--t2);
+      border-color: var(--border-h);
+    }
+    .proj-btn.outline:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── CONTACT ──────────────────────────────── */
+    #contact { text-align: center; }
+    .contact-desc {
+      color: var(--t2);
+      font-size: 1.02rem;
+      max-width: 440px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.72;
+    }
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.77rem;
+      color: var(--t2);
+      padding: 0.6rem 1.15rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .contact-chip:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ───────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2.25rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+    footer p {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      color: var(--t3);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SCROLL REVEAL ────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 820px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: rgba(7,16,31,0.97);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+        padding: 1.25rem 1.5rem;
+        gap: 1.25rem;
+      }
+      .nav-menu-btn { display: block; }
+      .wrapper { padding: 0 1.25rem; }
+      section { padding: 4.5rem 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.75rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-cta { gap: 0.65rem; }
+      .btn { padding: 0.65rem 1.25rem; font-size: 0.84rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     NAV
+═════════════════════════════════ -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">Abdulla<span>.</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#publications" onclick="closeMenu()">Research</a></li>
+    <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+  </ul>
+  <button class="nav-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+</nav>
+
+<!-- ════════════════════════════════
+     HERO
+═════════════════════════════════ -->
+<section id="hero">
+  <div class="wrapper">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">// GWU Computer Science &nbsp;·&nbsp; ML &nbsp;·&nbsp; AI &nbsp;·&nbsp; Full-Stack</p>
+      <h1 class="hero-name">Abdulla<br>Ali<span>.</span></h1>
+      <div class="hero-typewriter" id="typewriter"><span class="cursor">|</span></div>
+      <p class="hero-bio">
+        CS graduate building at the intersection of machine learning, AI evaluation, and sports analytics.
+        Published at HCII 2026 and KDD 2026 — and shipping real products along the way.
+      </p>
+      <div class="hero-cta">
+        <a href="https://github.com/AbdullaAli7" target="_blank" rel="noopener" class="btn btn-solid">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.936.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/abdulla-ali7/" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app.joinhandshake.com/profiles/tpv7ya" target="_blank" rel="noopener" class="btn btn-ghost">
+          Handshake ↗
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">2</div>
+          <div class="stat-label">Conference Papers</div>
+        </div>
+        <div>
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Yrs. AI Evaluation</div>
+        </div>
+        <div>
+          <div class="stat-num">1,481</div>
+          <div class="stat-label">Penalties Analyzed</div>
+        </div>
+        <div>
+          <div class="stat-num">34</div>
+          <div class="stat-label">ML Features Built</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     ABOUT
+═════════════════════════════════ -->
+<section id="about">
+  <div class="wrapper reveal">
+    <p class="sec-eyebrow">// about</p>
+    <h2 class="sec-title">About Me</h2>
+    <div class="sec-rule"></div>
+    <div class="about-grid">
+      <!-- Bio -->
+      <div>
+        <!-- HEADSHOT: replace the placeholder div below with an <img> tag when ready -->
+        <!-- Example: <img src="headshot.jpg" alt="Abdulla Ali" style="width:180px;height:180px;border-radius:50%;object-fit:cover;margin-bottom:2rem;"> -->
+        <div class="photo-placeholder" style="margin-bottom:2rem;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span>Add headshot</span>
+        </div>
+        <div class="about-bio">
+          <p>
+            CS graduate from The George Washington University working at the intersection of machine learning, AI evaluation, and full-stack development. I build data-driven systems — and I bring a researcher's rigor to every layer of the stack, from dataset construction and feature engineering to deployed, user-facing applications.
+          </p>
+          <p>
+            My work has been published at HCII 2026 and KDD 2026, and I've spent two-plus years professionally evaluating frontier LLMs at Alignerr — identifying hallucinations, instruction-following failures, and implementation gaps against real codebases. Whether I'm engineering a penalty kick scouting tool or catching a model that fabricated passing test results, the standard is the same: evidence-backed, precise, and honest.
+          </p>
+          <p>
+            Multilingual in English, Arabic, Kurdish, and Turkish. Former founder of Fade Nine LLC. I thrive where technical depth meets practical outcomes.
+          </p>
+        </div>
+      </div>
+      <!-- Skills Panel -->
+      <div>
+        <div class="skills-panel">
+          <div>
+            <div class="skill-group-label">Languages</div>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Java</span>
+              <span class="tag">Kotlin</span>
+              <span class="tag">C</span>
+              <span class="tag">HTML / CSS</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">Frameworks & Tools</div>
+            <div class="tag-row">
+              <span class="tag">React</span>
+              <span class="tag">Flask</span>
+              <span class="tag">React Native</span>
+              <span class="tag">REST APIs</span>
+              <span class="tag">Git</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">AI / ML</div>
+            <div class="tag-row">
+              <span class="tag">XGBoost</span>
+              <span class="tag">SHAP</span>
+              <span class="tag">LLM Evaluation</span>
+              <span class="tag">Hallucination Detection</span>
+              <span class="tag">Feature Engineering</span>
+              <span class="tag">Linear Programming</span>
+              <span class="tag">StatsBomb</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">Cloud & Infrastructure</div>
+            <div class="tag-row">
+              <span class="tag">AWS EC2</span>
+              <span class="tag">AWS S3</span>
+              <span class="tag">AWS Lambda</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">Evaluation & Research</div>
+            <div class="tag-row">
+              <span class="tag">Structured QA</span>
+              <span class="tag">Failure Mode Classification</span>
+              <span class="tag">Data Annotation</span>
+              <span class="tag">Benchmark Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     PUBLICATIONS
+═════════════════════════════════ -->
+<section id="publications">
+  <div class="wrapper reveal">
+    <p class="sec-eyebrow">// research</p>
+    <h2 class="sec-title">Publications</h2>
+    <div class="sec-rule"></div>
+    <div class="cards-grid" id="pub-grid">
+      <!-- Rendered by JS — see publications[] below -->
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     PROJECTS
+═════════════════════════════════ -->
+<section id="projects">
+  <div class="wrapper reveal">
+    <p class="sec-eyebrow">// work</p>
+    <h2 class="sec-title">Projects</h2>
+    <div class="sec-rule"></div>
+    <div class="cards-grid" id="proj-grid">
+      <!-- Rendered by JS — see projects[] below -->
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     CONTACT
+═════════════════════════════════ -->
+<section id="contact">
+  <div class="wrapper reveal">
+    <p class="sec-eyebrow">// contact</p>
+    <h2 class="sec-title">Get in Touch</h2>
+    <div class="sec-rule" style="margin-left:auto;margin-right:auto;"></div>
+    <p class="contact-desc">
+      Open to research collaborations, engineering roles, and interesting projects.
+      Best reached by email or LinkedIn.
+    </p>
+    <div class="contact-grid">
+      <a href="mailto:abdullaali6460@gmail.com" class="contact-chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        abdullaali6460@gmail.com
+      </a>
+      <a href="https://github.com/AbdullaAli7" target="_blank" rel="noopener" class="contact-chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.936.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/abdulla-ali7/" target="_blank" rel="noopener" class="contact-chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://app.joinhandshake.com/profiles/tpv7ya" target="_blank" rel="noopener" class="contact-chip">
+        ✦ Handshake
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Abdulla Ali &nbsp;·&nbsp; Built for GitHub Pages</p>
+</footer>
+
+<!-- ════════════════════════════════
+     DATA & SCRIPTS
+═════════════════════════════════ -->
+<script>
+/* ──────────────────────────────────────────────────────────
+   PUBLICATIONS
+   To add a paper: copy one object, fill in the fields, done.
+────────────────────────────────────────────────────────── */
+const publications = [
+  {
+    conference:    "HCII 2026",
+    conferenceUrl: "https://2026.hci.international/",
+    year:          "2026",
+    status:        "Accepted · Forthcoming",
+    title:         "Explainable AI for NBA Win Prediction",
+    desc:          "Developed a human-centered framework combining an XGBoost prediction pipeline with SHAP-based explainability and natural-language reasoning generation. Evaluated SVM, Random Forest, CNN, and Transformer models across predictive performance, runtime efficiency, and interpretability to surface the best tradeoffs for human-facing systems.",
+  },
+  {
+    conference:    "KDD 2026 Undergraduate Consortium",
+    conferenceUrl: "https://kdd2026.kdd.org/",
+    year:          "2026",
+    status:        "Accepted · Forthcoming",
+    title:         "Review-Informed Pilot Dataset and Baseline Modeling for NBA Game Winner Prediction",
+    desc:          "Focused on dataset construction, feature engineering, and benchmark evaluation methodology using NBA API-derived datasets spanning multiple seasons. Designed reliable preprocessing pipelines, validated experimental outputs for reproducibility, and documented methodological limitations for a research-grade baseline.",
+  },
+];
+
+/* ──────────────────────────────────────────────────────────
+   PROJECTS
+   To add a project: copy one object below and fill in:
+     title      — display name
+     subtitle   — one-line descriptor (monospace label)
+     icon       — emoji or leave ""
+     desc       — paragraph description
+     tags       — array of tech strings
+     links      — { live: "url or null", code: "url or null" }
+────────────────────────────────────────────────────────── */
+const projects = [
+  {
+    title:    "StatLine",
+    subtitle: "NBA Analytics Platform",
+    icon:     "🏀",
+    desc:     "Full-stack NBA analytics platform with a live XGBoost win probability model trained on 34 play-by-play features and TreeSHAP attribution. Includes Swish — a 22-tool AI chatbot on the OpenAI Responses API — and a GameBreakdown UI with Four Factors, efficiency metrics, scoring DNA, and key player analysis.",
+    tags:     ["React", "Flask", "XGBoost", "SHAP", "OpenAI API", "AWS EC2", "Python"],
+    links:    { live: "http://52.70.223.60/", code: null },
+  },
+  {
+    title:    "The Keeper's Eyes",
+    subtitle: "Soccer Penalty Kick Scouting",
+    icon:     "⚽",
+    desc:     "Penalty kick scouting and prediction app built on StatsBomb Open Data (~1,481 penalties). Features walk-forward temporal validation, freeze-frame scene features, a zero-sum linear programming game theory module with fictitious-play fallback, a Markov sequence model, Scout Card export, and an interactive Beat the Keeper Duel game mode.",
+    tags:     ["React", "Python", "StatsBomb", "scikit-learn", "Linear Programming", "Markov Model"],
+    links:    { live: null, code: "https://github.com/AbdullaAli7/The-Keepers-Eyes" },
+  },
+  /* ── ADD NEW PROJECTS HERE ──────────────────────────────
+  {
+    title:    "Project Name",
+    subtitle: "Short descriptor",
+    icon:     "🔬",
+    desc:     "What it does and why it matters.",
+    tags:     ["Tag1", "Tag2", "Tag3"],
+    links:    { live: "https://...", code: "https://github.com/..." },
+  },
+  ─────────────────────────────────────────────────────── */
+];
+
+/* ────────────────────────────────
+   RENDER PUBLICATIONS
+──────────────────────────────── */
+function renderPubs() {
+  const grid = document.getElementById('pub-grid');
+  grid.innerHTML = publications.map(p => `
+    <article class="pub-card">
+      <div class="pub-top">
+        <span class="pub-conf">${p.conference} · ${p.year}</span>
+        <span class="pub-badge">${p.status}</span>
+      </div>
+      <h3 class="pub-title">${p.title}</h3>
+      <p class="pub-desc">${p.desc}</p>
+      <div class="pub-footer">
+        <a href="${p.conferenceUrl}" target="_blank" rel="noopener" class="pub-link">Conference site ↗</a>
+        <span class="pub-req">Full text available on request</span>
+      </div>
+    </article>
+  `).join('');
+}
+
+/* ────────────────────────────────
+   RENDER PROJECTS
+──────────────────────────────── */
+function renderProjects() {
+  const grid = document.getElementById('proj-grid');
+  grid.innerHTML = projects.map(p => {
+    const live = p.links.live
+      ? `<a href="${p.links.live}" target="_blank" rel="noopener" class="proj-btn solid">↗ Live Demo</a>`
+      : '';
+    const code = p.links.code
+      ? `<a href="${p.links.code}" target="_blank" rel="noopener" class="proj-btn outline">⌥ Source</a>`
+      : '';
+    const tags = p.tags.map(t => `<span class="proj-tag">${t}</span>`).join('');
+    return `
+      <article class="proj-card">
+        <div class="proj-top">
+          <div>
+            <div class="proj-title">${p.title}</div>
+            <div class="proj-sub">${p.subtitle}</div>
+          </div>
+          <span class="proj-icon" aria-hidden="true">${p.icon}</span>
+        </div>
+        <p class="proj-desc">${p.desc}</p>
+        <div class="proj-tags">${tags}</div>
+        <div class="proj-links">${live}${code}</div>
+      </article>
+    `;
+  }).join('');
+}
+
+/* ────────────────────────────────
+   TYPEWRITER
+──────────────────────────────── */
+function initTypewriter() {
+  const roles = [
+    "Machine Learning Researcher",
+    "AI Evaluator & Engineer",
+    "Full-Stack Developer",
+    "Sports Analytics Builder",
+  ];
+  const el = document.getElementById('typewriter');
+  let ri = 0, ci = 0, deleting = false;
+
+  function tick() {
+    const word = roles[ri];
+    if (!deleting) {
+      ci++;
+      el.innerHTML = word.slice(0, ci) + '<span class="cursor">|</span>';
+      if (ci === word.length) {
+        deleting = true;
+        return setTimeout(tick, 2400);
+      }
+    } else {
+      ci--;
+      el.innerHTML = word.slice(0, ci) + '<span class="cursor">|</span>';
+      if (ci === 0) {
+        deleting = false;
+        ri = (ri + 1) % roles.length;
+      }
+    }
+    setTimeout(tick, deleting ? 38 : 62);
+  }
+  setTimeout(tick, 700);
+}
+
+/* ────────────────────────────────
+   SCROLL REVEAL
+──────────────────────────────── */
+function initReveal() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+/* ────────────────────────────────
+   MOBILE NAV
+──────────────────────────────── */
+function toggleMenu() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('nav-links').classList.remove('open');
+}
+
+/* ────────────────────────────────
+   INIT
+──────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderPubs();
+  renderProjects();
+  initTypewriter();
+  initReveal();
+});
+</script>
+</body>
+</html>
